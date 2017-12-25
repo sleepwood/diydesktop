@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+  <title>diydesk.TOP</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="css/common.css" rel="stylesheet"/>
+  <link href="css/index.css" rel="stylesheet"/>
+</head>
+<body>
+  <nav class="navbar navbar-inverse navbar-static-top">
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">DIY</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="#">首页</a></li>
+      <li><a href="#">排行</a></li>
+      <li><a href="#">管理</a></li>
+    </ul>
+    <p class="navbar-text navbar-right">admin <a href="#" class="navbar-link">注销</a></p>
+  </nav>
+
+  <div class="progress col-lg-10 col-lg-offset-1" style="padding-left:0;">
+    <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%;">
+      第一步——选择配置
+    </div>
+  </div>
+
+  <ul class="col-lg-offset-1 col-lg-10 list-group">
+    <li class="list-group-item">
+      <div class="row">
+        <span class="col-lg-2">CPU</span>
+        <span class="col-lg-2 cpu"></span>
+        <span class="col-lg-6">请设置物品</span>
+        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <span class="col-lg-2">主板</span>
+        <span class="col-lg-2 mdboard"></span>
+        <span class="col-lg-6">请设置物品</span>
+        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <span class="col-lg-2">内存</span>
+        <span class="col-lg-2 memory"></span>
+        <span class="col-lg-6">请设置物品</span>
+        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <span class="col-lg-2">显卡</span>
+        <span class="col-lg-2 graphic"></span>
+        <span class="col-lg-6">请设置物品</span>
+        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <span class="col-lg-2">HDD</span>
+        <span class="col-lg-2 hdd"></span>
+        <span class="col-lg-6">请设置物品</span>
+        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <span class="col-lg-2">SSD</span>
+        <span class="col-lg-2 ssd"></span>
+        <span class="col-lg-6">请设置物品</span>
+        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+      </div>
+    </li>
+  </ul>
+
+  <div class="col-lg-offset-1 col-lg-10 panel panel-default">
+    <div class="panel-body item-line">
+      <span class="col-lg-3 col-lg-offset-6 ">总金额：</span>
+      <span class="col-lg-3">¥ 12345</span>
+      <a class="btn btn-primary col-lg-offset-10 col-lg-1" href="#">提交</a>
+    </div>
+  </div>
+
+  <div class="modal fade" id="set-item">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">
+            <span aria-hidden="true">&times;</span>
+            <span class="sr-only">Close</span>
+          </button>
+          <div class="modal-title">添加物品</div>
+        </div>
+        <div class="modal-body">
+          <p>123</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" onclick="setItem()">确定</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

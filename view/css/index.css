@@ -1,0 +1,55 @@
+.cpu{
+  background: url(../../image/cpu.png);
+  background-size: 95% 95%;
+  background-repeat: no-repeat;
+  width: 50px;
+  height:50px;
+  vertical-align:middle;
+}
+.mdboard{
+  background: url(../../image/motherboard.png);
+  background-size: 95% 95%;
+  background-repeat: no-repeat;
+  width: 50px;
+  height:50px;
+  vertical-align:middle;
+}
+.memory{
+  background: url(../../image/memory.png);
+  background-size: 95% 95%;
+  background-repeat: no-repeat;
+  width: 50px;
+  height:50px;
+  vertical-align:middle;
+}
+.graphic{
+  background: url(../../image/graphic.png);
+  background-size: 95% 95%;
+  background-repeat: no-repeat;
+  width: 50px;
+  height:50px;
+  vertical-align:middle;
+}
+.hdd{
+  background: url(../../image/hdd.png);
+  background-size: 95% 95%;
+  background-repeat: no-repeat;
+  width: 50px;
+  height:50px;
+  vertical-align:middle;
+}
+.ssd{
+  background: url(../../image/ssd.png);
+  background-size: 95% 95%;
+  background-repeat: no-repeat;
+  width: 50px;
+  height:50px;
+  vertical-align:middle;
+}
+.list-group-item{
+  line-height: 50px;
+  text-align: center;
+}
+[class^="col-lg"]{
+  padding-right: 0px;
+}

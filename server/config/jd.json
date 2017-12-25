@@ -1,0 +1,6 @@
+{
+  "url":"http://item.jd.com/",
+  "image":"#spec-img",
+  "price":".price",
+  "titles":".sku-name"
+}
