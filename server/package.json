@@ -12,9 +12,10 @@
   "author": "sleeper",
   "license": "MIT",
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
+    "casperjs": "^1.1.4",
     "express": "^4.16.2",
     "iconv-lite": "^0.4.19",
-    "request": "^2.83.0"
+    "phantomjs": "^2.1.7",
+    "thenjs": "^2.0.6"
   }
 }
