@@ -15,7 +15,6 @@
     "casperjs": "^1.1.4",
     "express": "^4.16.2",
     "iconv-lite": "^0.4.19",
-    "phantomjs": "^2.1.7",
-    "thenjs": "^2.0.6"
+    "phantomjs": "^2.1.7"
   }
 }
