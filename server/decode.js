@@ -1,14 +1,29 @@
 var fs = require('fs');
-var request = require('request');
-var cheerio = require('cheerio');
-var iconv = require('iconv-lite');
-
-//定义常量
-var Url = 'https://item.taobao.com/item.htm?id=558818203763';//tmail-525432847421/3681469779062 jd-4055764
+//var async = require('async');
+var Url = "";
 var Type = new Object();
-
-function decode(type,id,skuId){
-  typeJudgement(type);
+async function decode(type,id,skuId){
+  await typeJudgement(type,id,skuId).catch(function(err){
+    console.log(err);
+  });
+  return capture(Url,Type.image,Type.price,Type.titles);
+}
+/*
+* 判断类型
+*/
+async function typeJudgement(type,id,skuId){
+  var conf = await readDir('config').catch(function(err){
+    console.log(err);
+  });
+  for(var i=0;i<conf.length;i++){
+      if(type == conf[i].split(".")[0]){
+        var config = await readFile('config/'+conf[i]).catch(function(err){//返回JSON
+          console.log(err);
+        });
+          Type = JSON.parse(config);//JSON转对象
+        break;
+      }
+  }
   if(skuId != null){//如果有不同商品的商品选项
     Url = Type.url + id + '&skuId=' + skuId;
   }
@@ -16,63 +31,39 @@ function decode(type,id,skuId){
     Url = Type.url + id;
   }
   if(type == 'jd'){
-    console.log("123");
     Url = Type.url+id+'.html';
   }
-  console.log(Url);
-  //发送请求
-  request({
-    url : Url,
-    method : 'GET',
-    encoding : null
-  },function(err, red, body) {
-    //请求到body
-    if(err){
-      console.log(Url);
-      console.error('[ERROR]Collection' + err);
-      return;
-    }
-    if(Url){
-      var buf =  iconv.decode(body, 'gbk');
-      var data = dataPraseDolphin(buf);
-      return data;
-    }
+}
+async function capture(url,img,price,title) {
+  var exec = require('child_process').exec;
+  return new Promise(function(resolve,reject){
+    exec('casperjs casper.js --url='+url+' --img='+img+' --price='+price+' --title='+title
+      ,function(e,out){
+      if(e){
+        reject(e);
+      }
+      else{
+        resolve(out);
+      }
+    });
   })
 }
-
-/*
-* 解析html
-*/
-function dataPraseDolphin(body) {
-  var $ = cheerio.load(body);
-
-  var img = $(Type.image).attr('data-origin').substr(2);
-  var price = $(Type.price).text();
-
-  var title = $(Type.titles).text().trim();
-
-  var feedback = new Object();
-  feedback.image = img;
-  feedback.price = price;
-  feedback.titles = title;
-  var data = JSON.stringify(feedback);
-  console.log(data);
-  return data;
-}
-/*
-* 判断类型 待Promise化
-*/
-function typeJudgement(type){
-  var conf = fs.readdirSync('config');
-  for(var i=0;i<conf.length;i++){
-    if(type == conf[i].split(".")[0]){
-      var config = fs.readFileSync('config/'+conf[i]);//返回JSON
-      Type = JSON.parse(config);//JSON转对象
-      break;
-    }
-  }
-}
+var readFile = function (fileName){
+  return new Promise(function (resolve, reject){
+    fs.readFile(fileName, function(error, data){
+      if (error) reject(error);
+      resolve(data);
+    });
+  });
+};
+var readDir = function (dirName){
+  return new Promise(function (resolve, reject){
+    fs.readdir(dirName, function(error, files){
+      if (error) reject(error);
+      resolve(files);
+    });
+  });
+};
 module.exports = {
   decode:decode,
-  typeJudgement:typeJudgement,
 }
