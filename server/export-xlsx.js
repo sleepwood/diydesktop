@@ -8,13 +8,22 @@ function exportXlsx(data){
   //Title
   var row = sheet.addRow();
   row.setHeightCM(1.5);
-  var cell = row.addCell();
-  cell.value = data.title;
-  cell.hMerge = 4;
-  style(cell,0);
+  var cell = sheet.cell(0,0);
+  cell.value = data.title[0];
+  cell.hMerge = 2;
+  style(cell,0,true,16);
   border(cell,1,1,1,1);
   fill(cell,0);
-
+  var cell = sheet.cell(0,3);
+  cell.value = data.title[1];
+  style(cell,0,true,12);
+  border(cell,1,1,1,1);
+  fill(cell,0);
+  var cell = sheet.cell(0,4);
+  cell.value = data.title[2];
+  style(cell,0,true,12);
+  border(cell,1,1,1,1);
+  fill(cell,0);
 
   //Header
   hrow = sheet.addRow();
@@ -22,7 +31,7 @@ function exportXlsx(data){
   for(var q=0;q<data.header.length;q++){
     var cell = hrow.addCell();
     cell.value = data.header[q];
-    style(cell,0);
+    style(cell,0,true,14);
     border(cell,1,1,1,1);
     fill(cell,1);
   }
@@ -34,56 +43,57 @@ function exportXlsx(data){
     //Col 1
     var cell = jrow.addCell();
     cell.value = line[0];
-    style(cell,0);
+    style(cell,0,true,14);
     border(cell,1,1,1,1);
     fill(cell,2);
     //Col 2
     var cell = jrow.addCell();
     cell.value = line[1];
-    style(cell,1);
+    style(cell,1,false,12);
     border(cell,1,1,1,1);
     fill(cell,3);
     //Col 3
     var cell = jrow.addCell();
     cell.value = line[2];
-    style(cell,1);
+    style(cell,1,false,12);
     border(cell,1,1,1,1);
     fill(cell,3);
     //Col 4
     var cell = jrow.addCell();
     cell.setNumber(line[3]);
-    style(cell,0);
+    style(cell,0,true,12);
     border(cell,1,1,1,1);
     fill(cell,3);
     //Col 5
     var cell = jrow.addCell();
     cell.setNumber(line[4]);
     cell.numFmt = "¥#,##0.00";
-    style(cell,2);
+    style(cell,2,true,12);
     border(cell,1,1,1,1);
     fill(cell,3);
   }
   //Footer
   var srow = sheet.addRow();
   srow.setHeightCM(1);
-    var cell = srow.addCell();
+    var cell = sheet.cell(data.data.length+2,0);
+    cell.hMerge = 2;
     cell.value = "总计";
-    style(cell,0);
+    style(cell,0,true,14);
     border(cell,1,1,1,1);
     fill(cell,1);
-    var sum = srow.addCell();
-    sum.hMerge = 3;
+    var sum = sheet.cell(data.data.length+2,3);
+    sum.hMerge = 1;
     sum.setNumber(data.footer[0]);
     sum.numFmt = "¥#,##0.00";
-    style(sum,0);
+    style(sum,0,true,14);
     border(sum,1,1,1,1);
     fill(sum,1);
   srow = sheet.addRow();
   srow.setHeightCM(0.6);
     var cell = srow.addCell();
     cell.hMerge = 4;
-    cell.value = data.footer[2]+"  "+data.footer[3]+"  "+data.footer[1];
-    style(cell,0);
+    cell.value = data.footer[1];
+    style(cell,0,false,12);
     border(cell,1,1,1,1);
     fill(cell,0);
 
@@ -103,12 +113,12 @@ function exportXlsx(data){
   return new Promise(function(resolve,reject){
     file
         .saveAs()
-        .pipe(fs.createWriteStream('tmp/'+data.footer[2].substr(3)+data.footer[3]+'.xlsx'))
+        .pipe(fs.createWriteStream('tmp/'+data.title[1].substr(3)+data.title[2]+'.xlsx'))
         .on('error',(err)=>{
           reject(error);
         })
         .on('finish', () => {
-          resolve('tmp/'+data.footer[2].substr(3)+data.footer[3]+'.xlsx');
+          resolve('tmp/'+data.title[1].substr(3)+data.title[2]+'.xlsx');
         })
   })
 }
@@ -133,11 +143,13 @@ function border(cell,top,left,bottom,right){
   cell.style.border.rightColor = black;
 }
 
-function style(cell,type){
+function style(cell,type,bold,size){
   var aligns = ['center','left','right'];
   //0: header/title/footer/sum, 1: body, 2: body(price)
   cell.style.align.h = aligns[type];
   cell.style.align.v = "center";
+  cell.style.font.bold = bold;
+  cell.style.font.size = size;
 }
 module.exports = {
   exportXlsx:exportXlsx,
