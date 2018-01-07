@@ -1,6 +1,6 @@
 {
-  "url":"https://detail.tmall.com/item.htm?id=",
-  "image":"#J_ImgBooth",
-  "price":"span[class=tm-price]",
-  "titles":".tb-detail-hd>h1"
+  "url":"http://detail.m.tmall.com/item.htm?",
+  "image":"a[class=item]>img",
+  "price":"strong[class=price]",
+  "titles":".main"
 }

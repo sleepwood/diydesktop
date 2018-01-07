@@ -1,37 +1,41 @@
 var fs = require('fs');
-//var async = require('async');
 var Url = "";
 var Type = new Object();
-async function decode(type,id,skuId){
-  await typeJudgement(type,id,skuId).catch(function(err){
+async function decode(url){
+  await typeJudgement(url).catch(function(err){
     console.log(err);
   });
+  console.log(Url);
   return capture(Url,Type.image,Type.price,Type.titles);
 }
 /*
 * 判断类型
 */
-async function typeJudgement(type,id,skuId){
-  var conf = await readDir('config').catch(function(err){
+async function typeJudgement(url){
+  var i = 0;
+  var conf = await readDir('config').catch(function(err){//读取所有的配置文件
     console.log(err);
   });
-  for(var i=0;i<conf.length;i++){
-      if(type == conf[i].split(".")[0]){
-        var config = await readFile('config/'+conf[i]).catch(function(err){//返回JSON
-          console.log(err);
-        });
-          Type = JSON.parse(config);//JSON转对象
+  var type = url.split('/')[2];
+  for(;i<conf.length;i++){
+      var config = await readFile('config/'+conf[i]).catch(function(err){//返回JSON
+        console.log(err);
+      });
+      config = JSON.parse(config);
+      if(type == config.url.split("/")[2]){
+          Type = config;//JSON转对象
         break;
       }
   }
-  if(skuId != null){//如果有不同商品的商品选项
-    Url = Type.url + id + '&skuId=' + skuId;
+  if(conf[i] == "jd.json"){
+    Url = url;
   }
   else{
-    Url = Type.url + id;
-  }
-  if(type == 'jd'){
-    Url = Type.url+id+'.html';
+    var id = url.substring(url.indexOf('id='),url.indexOf('id=')+15);
+    if(url.indexOf('skuId=') != -1){//如果是天猫链接
+      id += '&' + url.substring(url.indexOf('skuId='),url.indexOf('skuId=')+19);
+    }
+    Url = config.url + id;
   }
 }
 async function capture(url,img,price,title) {

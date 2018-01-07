@@ -1,6 +1,6 @@
 {
   "name": "diydesktop",
-  "version": "0.7.1",
+  "version": "0.2.7",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -16,6 +16,7 @@
     "casperjs": "^1.1.4",
     "express": "^4.16.2",
     "iconv-lite": "^0.4.19",
-    "phantomjs": "^2.1.7"
+    "phantomjs": "^2.1.7",
+    "request": "^2.83.0"
   }
 }
