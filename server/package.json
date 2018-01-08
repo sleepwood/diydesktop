@@ -17,6 +17,7 @@
     "express": "^4.16.2",
     "iconv-lite": "^0.4.19",
     "phantomjs": "^2.1.7",
-    "request": "^2.83.0"
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2"
   }
 }

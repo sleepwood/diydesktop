@@ -1,20 +1,17 @@
 var express = require('express');
-var decode = require('./decode');
-var codeapi = require('./unicode');
+var decodes = require('./decodes');
 var xlsx = require('./export-xlsx');
 var app = express();
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
-app.get('/decode',function(req, res){
+app.get('/decode', function (req, res) {
   (async function(url){
-    var callback = await decode.decode(url);
+    var callback = await decodes.decodeurl(url);
     console.log(callback);
     res.send(callback);
-  })("http://item.jd.com/5212150.html")//JD http://item.jd.com/5212150.html
-  //taobao "https://item.taobao.com/item.htm?spm=a230r.1.14.104.44e6f594eRFPJL&id=521290836518&ns=1&abbucket=6#detail"
-  //tmall "https://detail.m.tmall.com/item.htm?spm=0.0.0.0.aMTq3a&id=544913594159&abtest=24&rn=7713f28d3fedc7cb058d504eb3e8f29b&sid=955b1b9ced6c4166792c309865f57d5f&skuId=3284758100324"
+  })("http://item.jd.com/5212150.html")
 });
 app.get('/xlsx',function(req, res){
   (async function(data){
@@ -34,13 +31,6 @@ app.get('/xlsx',function(req, res){
     "footer":[2976,"power by diydesktop"]
   })
   //测试数据如上
-});
-app.get('/bijia',function(req, res){
-  (async function(url){
-    var callback = await codeapi.bijia(url);
-    console.log(callback);
-    res.send(callback);
-  })("http://item.jd.com/5212150.html")
 });
 var server = app.listen(4000, function () {
   var host = server.address().address;

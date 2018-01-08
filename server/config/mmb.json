@@ -1,6 +1,0 @@
-{
-  "input":".input",
-  "submit":".btn[type=submit]",
-  "price":".currentprice",
-  "titles":".spinfo"
-}
