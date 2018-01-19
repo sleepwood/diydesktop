@@ -8,10 +8,17 @@ app.get('/', function (req, res) {
 });
 app.get('/decode', function (req, res) {
   (async function(url){
-    var callback = await decodes.decodeurl(url);
-    console.log(callback);
-    res.send(callback);
-  })("http://item.jd.com/5212150.html")
+    var _callback = req.query.callback;//获取callback函数
+    var _data = await decodes.decodeurl(url);//获取数据
+    console.log(_data);
+    if (_callback){
+        res.type('text/javascript');
+        res.send(_callback + '(' + _data + ')');
+    }
+    else{
+        res.json(_data);
+    }
+  })(req.query.url)
 });
 app.get('/xlsx',function(req, res){
   (async function(data){

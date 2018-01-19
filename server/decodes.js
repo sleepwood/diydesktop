@@ -8,7 +8,7 @@ async function decodeurl(url){
   var site = "http://tool.manmanbuy.com/m/history.aspx?DA=1";
   var result = site+"&action=gethistory&url="+url+"&token="+token;
   var item = new Object();
-
+  console.log(result);
   var options =   { method: 'GET'
     , uri: result
     , gzip: true
@@ -25,13 +25,19 @@ async function decodeurl(url){
     }
     var callback = await request(options)
         .then(function(data){
-          console.log(data);
             var strJson = iconv.decode(data,'gb2312'); // 汉字不乱码
             var tmp = JSON.parse(strJson);
-            item.titles = tmp.spname;
-            item.price = tmp.spprice;
-            item.image = tmp.sppic;
-            item.url = tmp.spurl;
+            if(tmp.ok==1){// 有数据的情况
+              item.ok = tmp.ok;
+              item.titles = tmp.spname;
+              item.price = tmp.spprice;
+              item.image = tmp.sppic;
+              item.url = tmp.spurl;
+            }
+            else{// 没数据的情况
+              item.ok = tmp.ok;
+              item.msg = "无法搜索到查找的商品！";
+            }
             return JSON.stringify(item);
         })
         .catch(function(err){
