@@ -35,7 +35,7 @@ app.get('/xlsx',function(req, res){
       ["显卡","测试数据","https://github.com",1,1299],
       ["机械硬盘","测试数据","https://github.com",1,299]
     ],
-    "footer":[2976,"power by diydesktop"]
+    "footer":[2976,"Copyright (c) 2018 diydesktop."]
   })
   //测试数据如上
 });
