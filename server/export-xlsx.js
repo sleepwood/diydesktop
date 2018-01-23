@@ -2,6 +2,7 @@ const fs = require('fs');
 const xlsx = require('better-xlsx');
 
 function exportXlsx(data){
+  data = JSON.parse(data);
   var file = new xlsx.File();
   var sheet = file.addSheet('装机单');
 
@@ -113,12 +114,12 @@ function exportXlsx(data){
   return new Promise(function(resolve,reject){
     file
         .saveAs()
-        .pipe(fs.createWriteStream('tmp/'+data.title[1].substr(3)+data.title[2]+'.xlsx'))
+        .pipe(fs.createWriteStream('tmp/'+data.title[0]+data.title[1].substr(3)+'.xlsx'))
         .on('error',(err)=>{
-          reject(error);
+          reject(err);
         })
         .on('finish', () => {
-          resolve('tmp/'+data.title[1].substr(3)+data.title[2]+'.xlsx');
+          resolve('tmp/'+data.title[0]+data.title[1].substr(3)+'.xlsx');
         })
   })
 }

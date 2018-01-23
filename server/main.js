@@ -23,9 +23,9 @@ app.get('/decode', function (req, res) {
 app.get('/xlsx',function(req, res){
   (async function(data){
     var callback = await xlsx.exportXlsx(data);
-    //res.send(callback);
     res.download(callback, 'desktoplan.xlsx');
-  })({
+  })(req.query.items)
+  /*{
     "title":["装机单——测试装机","ID:admin","2018-1-1"],
     "header":["部件","名称","链接","数量","价格"],
     "data":[
@@ -36,7 +36,8 @@ app.get('/xlsx',function(req, res){
       ["机械硬盘","测试数据","https://github.com",1,299]
     ],
     "footer":[2976,"Copyright (c) 2018 diydesktop."]
-  })
+  }
+  */
   //测试数据如上
 });
 var server = app.listen(4000, function () {
