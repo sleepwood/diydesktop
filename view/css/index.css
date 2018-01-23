@@ -46,10 +46,37 @@
   height:50px;
   vertical-align:middle;
 }
+.power{
+  background: url(../../image/power.png);
+  background-size: 95% 95%;
+  background-repeat: no-repeat;
+  width: 50px;
+  height:50px;
+  vertical-align:middle;
+}
+.case{
+  background: url(../../image/case.png);
+  background-size: 95% 95%;
+  background-repeat: no-repeat;
+  width: 50px;
+  height:50px;
+  vertical-align:middle;
+}
+.monitor{
+  background: url(../../image/monitor.png);
+  background-size: 95% 95%;
+  background-repeat: no-repeat;
+  width: 50px;
+  height:50px;
+  vertical-align:middle;
+}
 .list-group-item{
   line-height: 50px;
   text-align: center;
 }
 [class^="col-lg"]{
   padding-right: 0px;
+}
+.formrow{
+  margin-top: 25px;
 }

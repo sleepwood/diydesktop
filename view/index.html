@@ -5,10 +5,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/html2canvas.min.js" type="text/javascript" charset="utf-8"></script>
   <title>diydesk.TOP</title>
   <link href="css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="css/jquery-ui.min.css" rel="stylesheet"/>
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/index.css" rel="stylesheet"/>
 </head>
@@ -20,77 +23,203 @@
     <ul class="nav navbar-nav">
       <li><a href="#">首页</a></li>
       <li><a href="#">排行</a></li>
-      <li><a href="#">管理</a></li>
+      <li><a href="#">关于</a></li>
     </ul>
-    <p class="navbar-text navbar-right">admin <a href="#" class="navbar-link">注销</a></p>
+    <!--p class="navbar-text navbar-right">admin <a href="#" class="navbar-link">注销</a></p-->
   </nav>
 
-  <div class="progress col-lg-10 col-lg-offset-1" style="padding-left:0;">
-    <div class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%;">
-      第一步——选择配置
+  <div class="row">
+    <div class="progress col-lg-10 col-lg-offset-1" style="padding-left:0;padding-right:0;">
+      <div id="top-bar" class="progress-bar" role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width: 33%;">
+        第一步——选择配置
+      </div>
     </div>
   </div>
 
-  <ul class="col-lg-offset-1 col-lg-10 list-group">
-    <li class="list-group-item">
-      <div class="row">
-        <span class="col-lg-2">CPU</span>
-        <span class="col-lg-2 cpu"></span>
-        <span class="col-lg-6">请设置物品</span>
-        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+  <div class="first-step">
+    <ul class="col-lg-offset-1 col-lg-10 list-group">
+      <li class="list-group-item">
+        <div class="row">
+          <span class="col-lg-1">CPU</span>
+          <span class="col-lg-2 cpu"></span>
+          <span class="col-lg-9 item">
+                <div class="col-lg-8"><a href="#">顺丰海盗船K70K65K95RGB铂金版惩戒者游戏机械键盘红轴青茶轴银轴</a></div>
+                <span class="col-lg-2 item-price">¥123</span>
+                <div class="col-lg-2 item-line">
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-default" style="margin-right:-2px;" onclick="numberInput(event)">+</button>
+                    </div>
+                    <input type="number" maxlength="2" class="form-control num" style="text-align:center;float:none;" value="1"/>
+                    <div class="input-group-btn">
+                      <button type="button" class="btn btn-default" style="margin-left:-2px;" onclick="numberInput(event)">-</button>
+                    </div>
+                  </div>
+                </div>
+          </span>
+          <button type='button' class='btn btn-danger btn-sm' onclick='deleteItem(event)'>删除</button>
+          <button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#set-item' data-type='modify'>修改</button>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <span class="col-lg-1">主板</span>
+          <span class="col-lg-2 mdboard"></span>
+          <span class="col-lg-9">请设置物品</span>
+          <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <span class="col-lg-1">内存</span>
+          <span class="col-lg-2 memory"></span>
+          <span class="col-lg-9">请设置物品</span>
+          <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <span class="col-lg-1">显卡</span>
+          <span class="col-lg-2 graphic"></span>
+          <span class="col-lg-9">请设置物品</span>
+          <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <span class="col-lg-1">HDD</span>
+          <span class="col-lg-2 hdd"></span>
+          <span class="col-lg-9">请设置物品</span>
+          <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <span class="col-lg-1">SSD</span>
+          <span class="col-lg-2 ssd"></span>
+          <span class="col-lg-9">请设置物品</span>
+          <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <span class="col-lg-1">电源</span>
+          <span class="col-lg-2 power"></span>
+          <span class="col-lg-9">请设置物品</span>
+          <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <span class="col-lg-1">机箱</span>
+          <span class="col-lg-2 case"></span>
+          <span class="col-lg-9">请设置物品</span>
+          <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+        </div>
+      </li>
+      <li class="list-group-item">
+        <div class="row">
+          <span class="col-lg-1">显示器</span>
+          <span class="col-lg-2 monitor"></span>
+          <span class="col-lg-9">请设置物品</span>
+          <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="second-step" style="display:none;">
+    <div class="panel-group col-lg-10 col-lg-offset-1" id="accordion" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-primary">
+        <div class="panel-heading" role="tab" id="headingOne">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">配置单属性设置</a>
+          </h4>
+        </div>
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <div class="form-horizontal formrow">
+              <div class="form-group">
+                <label class="control-label col-lg-2">配置单名称</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="list-name" placeholder="自定义配置单名称" value=""/>
+                </div>
+                <span id="name-help" class="help-block col-lg-offset-2 col-lg-8">配置单名称不能超过20个汉字，名称不得包含违法信息。</span>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-lg-2">配置单作者</label>
+                <div class="col-lg-9">
+                  <input type="text" class="form-control" id="list-author" placeholder="输入自己的昵称" value=""/>
+                </div>
+                <span id="author-help" class="help-block col-lg-offset-2 col-lg-8">昵称不能为空或超过10个字符，不能包含特殊符号。</span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </li>
-    <li class="list-group-item">
-      <div class="row">
-        <span class="col-lg-2">主板</span>
-        <span class="col-lg-2 mdboard"></span>
-        <span class="col-lg-6">请设置物品</span>
-        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+      <div class="panel panel-success">
+        <div class="panel-heading" role="tab" id="headingTwo">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">内容确认</a>
+          </h4>
+        </div>
+        <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>图片</th>
+                <th>名字</th>
+                <th>数量</th>
+                <th>价格</th>
+                <th>排序</th>
+              </tr>
+            </thead>
+            <tbody id="sortable">
+            </tbody>
+          </table>
+        </div>
       </div>
-    </li>
-    <li class="list-group-item">
-      <div class="row">
-        <span class="col-lg-2">内存</span>
-        <span class="col-lg-2 memory"></span>
-        <span class="col-lg-6">请设置物品</span>
-        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+    </div>
+  </div>
+
+  <div class="third-step" style="display:none;">
+    <div id="list-msg" class="panel panel-success col-lg-offset-1 col-lg-10">
+      <!-- Default panel contents -->
+      <div class="panel-heading row">
+        <span class="col-lg-2"><h4 id="list-title"></h4></span>
+        <span class="col-lg-offset-6 col-lg-2" id="third-author"></span>
+        <span class="col-lg-2" id="list-time"></span>
       </div>
-    </li>
-    <li class="list-group-item">
-      <div class="row">
-        <span class="col-lg-2">显卡</span>
-        <span class="col-lg-2 graphic"></span>
-        <span class="col-lg-6">请设置物品</span>
-        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
+      <ul class="list-group" id="third-list"></ul>
+      <div class="panel-footer row">
+        <div class="col-lg-offset-9 col-lg-2" id="list-sum"></div>
+        <div class="col-lg-offset-2 col-lg-8">此配置单生成于 diyDeskTop 攒机就来diyDeskTop Copyright (c) 2017-2018 diyDeskTop</div>
       </div>
-    </li>
-    <li class="list-group-item">
-      <div class="row">
-        <span class="col-lg-2">HDD</span>
-        <span class="col-lg-2 hdd"></span>
-        <span class="col-lg-6">请设置物品</span>
-        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
-      </div>
-    </li>
-    <li class="list-group-item">
-      <div class="row">
-        <span class="col-lg-2">SSD</span>
-        <span class="col-lg-2 ssd"></span>
-        <span class="col-lg-6">请设置物品</span>
-        <a href="#set-item" data-toggle="modal" class="btn btn-default">设置物品</a>
-      </div>
-    </li>
-  </ul>
+    </div>
+  </div>
 
   <div class="col-lg-offset-1 col-lg-10 panel panel-default">
-    <div class="panel-body item-line">
-      <span class="col-lg-3 col-lg-offset-6 ">总金额：</span>
-      <span class="col-lg-3">¥ 12345</span>
-      <a class="btn btn-primary col-lg-offset-10 col-lg-1" href="#">提交</a>
+    <div class="panel-body item-line first-step">
+      <span class="col-lg-3 col-lg-offset-6">总金额：</span>
+      <span class="col-lg-3 sum-price">¥ 0</span>
+      <a class="btn btn-primary col-lg-offset-10 col-lg-1" href="javascript:sumbitList()">提交</a>
+    </div>
+    <div class="panel-body item-line second-step" style="display:none;">
+      <span class="col-lg-offset-1 col-lg-10">
+        <input type="checkbox" id="statistics" checked="true">允许本网站统计配置单中的商品信息
+        <input type="checkbox" id="share">允许本网站分享此配置单作为模版供其他用户使用
+      </span>
+      <a class="btn btn-primary col-lg-offset-1 col-lg-1" id="prev-btn" href="javascript:resetList()">上一步</a>
+      <a class="btn btn-primary col-lg-offset-8 col-lg-1 disabled" id="next-btn" href="javascript:getDocument()">下一步</a>
+    </div>
+    <div class="panel-body item-line third-step" style="display:none;">
+      <a class="btn btn-primary col-lg-offset-1 col-lg-2 share-btn" id="share-btn">保存到剪切板</a>
+      <a class="btn btn-info col-lg-offset-2 col-lg-2" id="pic-btn" href="javascript:printList()">生成图片</a>
+      <a class="btn btn-success col-lg-offset-2 col-lg-2" id="xls-btn" href="javascript:writeList()">生成xls文件</a>
     </div>
   </div>
 
-  <div class="modal fade" id="set-item">
+  <div class="modal fade" tabindex="-1" role="dialog" id="set-item">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -101,14 +230,99 @@
           <div class="modal-title">添加物品</div>
         </div>
         <div class="modal-body">
-          <p>123</p>
+          <div id="add-alert" class="alert alert-info" role="alert">商品导入功能获取的数据受时效限制，仅供参考！</div>
+          <div class="input-group">
+            <input type="text" class="form-control" id="add-url" placeholder="输入商品链接自动导入商品信息">
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-default" data-loading-text="导入中..." onclick="inporitem(event)">导入</button>
+              </div>
+          </div>
+          <div class="form-horizontal formrow">
+            <div class="form-group">
+              <label class="control-label col-lg-2">商品名称</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" id="add-name" placeholder="输入商品名称(如：gtx1060)" value=""/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-lg-2">商品图片</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" id="add-img" placeholder="输入商品图片地址(https://开头)" value=""/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-lg-2">商品价格</label>
+              <div class="col-lg-9">
+                <input type="text" class="form-control" id="add-price" placeholder="输入商品价格(如：387)" value=""/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="control-label col-lg-2">商品数量</label>
+              <div class="col-lg-9">
+                <div class="input-group col-lg-4">
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" style="margin-right:-2px;"onclick="numberInput(event)">+</button>
+                  </div>
+                  <input id="add-num" type="number" maxlength="2" class="form-control num" style="text-align:center" value=""/>
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-default" onclick="numberInput(event)">-</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="setItem()">确定</button>
+          <button type="button" class="btn btn-primary" onclick="setItem('add')">确定</button>
           <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
         </div>
       </div>
     </div>
   </div>
+  <form style="display:none" target="" method="get" action="http://localhost:4000/xlsx">
+    <input type="hidden" name="items" value="">
+  </form>
 </body>
+<script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  function numberInput(e){
+    type=e.target.innerHTML//获取按钮的文字 判断加减操作
+    if(type=='+'){
+      var num = $(e.target).parent().siblings('input').val();
+    }
+    else{
+      var num = $(e.target).parent().siblings('input').val();
+    }
+
+    if(num.length==0){
+      num=0;
+    }
+    else{
+      num = parseInt(num);
+    }
+    if(type=='+'){
+      num += 1;
+       $(e.target).parent().siblings('input').val(num);
+    }
+    else{
+      num -= 1;
+      if(num<=0){
+        num=1;
+      }
+       $(e.target).parent().siblings('input').val(num);
+    }
+    updatePrice();
+  }
+  function printList(){
+    html2canvas($("body"),{onrendered:function(canvas){
+      var image = canvas.toDataURL("image/png");
+      console.log(image);
+      var a = document.createElement("a");
+      a.href = image;
+      a.target = "_blank";
+      a.click();
+    },useCORS:true});
+  
+  }
+</script>
 </html>
