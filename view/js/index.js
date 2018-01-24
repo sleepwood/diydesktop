@@ -30,7 +30,7 @@ function setItem(e){
     targetItem.children().eq(2).append($span);
     targetItem.children().eq(2).append($div_1);
     //设置按钮
-    targetItem.children().remove("a");
+    targetItem.children().remove("button");
     var $btn_1 = $("<button type='button' class='btn btn-danger btn-sm' onclick='deleteItem(event)'>删除</button>");
     var $btn_2 = $("<button type='button' class='btn btn-primary btn-sm' data-toggle='modal' data-target='#set-item' data-type='modify'>修改</button>");
     targetItem.append($btn_2);
@@ -142,13 +142,16 @@ $(function(){
   $("#sortable").disableSelection();
   //按下按钮进行排序
   $(document).on('mousedown','.sort',function(){
-    console.log(123);
     $( "#sortable" ).sortable( "enable" );
   })
   //松开按钮不可排序
   $( "#sortable" ).on( "sortupdate", function( event, ui ) {
     $( "#sortable" ).sortable( "disable" );
   });
+  //复制到剪切板后的提示
+  $('#share-btn').bind('click',function(){
+    alert("已经保存到剪切板！");
+  })
 })
 //导入失败的错误处理
 function setError(msg){
@@ -285,7 +288,6 @@ function getDocument(){
   list.footer = [$('.sum-price').text().substr(1),"Copyright (c) 2018 diydesktop."];
   list.header = ["部件","名称","链接","数量","价格"];
   list.title = [$name,$author,times];
-  console.log(list);
 
   //设置要复制到剪切板的文本内容
   var l2text = list.title[0]+"\n作者:"+list.title[1]+" 在 "+list.title[2]+" 制作\n";
@@ -303,16 +305,17 @@ function getDocument(){
   $('#list-sum').text(list.footer[0]+" 元")
 
   var $ilist = $('.list-group-item');
-  for(var i=0;i<$ilist.length;i++){
-    if($ilist.eq(i).find('.col-lg-9').text() != "请设置物品"){
-      console.log($ilist.eq(i).find('.col-lg-9'));
-      $ilist.eq(i).clone().appendTo('#third-list');
-      $('#third-list').children('.list-group-item').find('button').remove();
-      $('#third-list .item').attr("class","col-lg-10 item");
-      var $num = $('#third-list').children('.list-group-item').eq(i).find('.num').val();
-      $('#third-list').children('.list-group-item').eq(i).find('.item-line').empty();
-      $('#third-list').children('.list-group-item').eq(i).find('.item-line').text($num);
-    }
+  for(var i=0;i<list.data.length;i++){
+     for(var j=0;j<$ilist.length;j++){
+       if($ilist.eq(j).find('.col-lg-8').text()==list.data[i][1]){
+         $ilist.eq(j).clone().appendTo('#third-list');
+         $('#third-list').children('.list-group-item').find('button').remove();
+         $('#third-list .item').attr("class","col-lg-10 item");
+         var $num = $('#third-list').children('.list-group-item').eq(i).find('.num').val();
+         $('#third-list').children('.list-group-item').eq(i).find('.item-line').empty();
+         $('#third-list').children('.list-group-item').eq(i).find('.item-line').text($num);
+       }
+     }
   }
   //页面跳转到第三页
   $('.second-step').css("display","none");
