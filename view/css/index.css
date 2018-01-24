@@ -1,5 +1,5 @@
 .cpu{
-  background: url(../../image/cpu.png);
+  background-image: url(../../image/cpu.png);
   background-size: 95% 95%;
   background-repeat: no-repeat;
   width: 50px;
@@ -7,7 +7,7 @@
   vertical-align:middle;
 }
 .mdboard{
-  background: url(../../image/motherboard.png);
+  background-image: url(../../image/motherboard.png);
   background-size: 95% 95%;
   background-repeat: no-repeat;
   width: 50px;
@@ -15,7 +15,7 @@
   vertical-align:middle;
 }
 .memory{
-  background: url(../../image/memory.png);
+  background-image: url(../../image/memory.png);
   background-size: 95% 95%;
   background-repeat: no-repeat;
   width: 50px;
@@ -23,7 +23,7 @@
   vertical-align:middle;
 }
 .graphic{
-  background: url(../../image/graphic.png);
+  background-image: url(../../image/graphic.png);
   background-size: 95% 95%;
   background-repeat: no-repeat;
   width: 50px;
@@ -31,7 +31,7 @@
   vertical-align:middle;
 }
 .hdd{
-  background: url(../../image/hdd.png);
+  background-image: url(../../image/hdd.png);
   background-size: 95% 95%;
   background-repeat: no-repeat;
   width: 50px;
@@ -39,7 +39,7 @@
   vertical-align:middle;
 }
 .ssd{
-  background: url(../../image/ssd.png);
+  background-image: url(../../image/ssd.png);
   background-size: 95% 95%;
   background-repeat: no-repeat;
   width: 50px;
@@ -47,7 +47,7 @@
   vertical-align:middle;
 }
 .power{
-  background: url(../../image/power.png);
+  background-image: url(../../image/power.png);
   background-size: 95% 95%;
   background-repeat: no-repeat;
   width: 50px;
@@ -55,7 +55,7 @@
   vertical-align:middle;
 }
 .case{
-  background: url(../../image/case.png);
+  background-image: url(../../image/case.png);
   background-size: 95% 95%;
   background-repeat: no-repeat;
   width: 50px;
@@ -63,7 +63,7 @@
   vertical-align:middle;
 }
 .monitor{
-  background: url(../../image/monitor.png);
+  background-image: url(../../image/monitor.png);
   background-size: 95% 95%;
   background-repeat: no-repeat;
   width: 50px;

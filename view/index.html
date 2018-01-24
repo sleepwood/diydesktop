@@ -192,8 +192,9 @@
       </div>
       <ul class="list-group" id="third-list"></ul>
       <div class="panel-footer row">
-        <div class="col-lg-offset-9 col-lg-2" id="list-sum"></div>
-        <div class="col-lg-offset-2 col-lg-8">此配置单生成于 diyDeskTop 攒机就来diyDeskTop Copyright (c) 2017-2018 diyDeskTop</div>
+        <div class="col-lg-offset-8 col-lg-2" style="padding-top:15px;"><h4>总计: </h4></div>
+        <div class="col-lg-2" style="padding-top:15px;padding-bottom:15px;"><h4 id="list-sum"></h4></div>
+        <div class="col-lg-offset-2 col-lg-8 help-block">此配置单生成于 diyDeskTop 攒机就来diyDeskTop Copyright (c) 2017-2018 diyDeskTop</div>
       </div>
     </div>
   </div>
@@ -214,7 +215,7 @@
     </div>
     <div class="panel-body item-line third-step" style="display:none;">
       <a class="btn btn-primary col-lg-offset-1 col-lg-2 share-btn" id="share-btn">保存到剪切板</a>
-      <a class="btn btn-info col-lg-offset-2 col-lg-2" id="pic-btn" href="javascript:printList()">生成图片</a>
+      <a class="btn btn-info col-lg-offset-2 col-lg-2" id="pic-btn" href="">生成图片</a>
       <a class="btn btn-success col-lg-offset-2 col-lg-2" id="xls-btn" href="javascript:writeList()">生成xls文件</a>
     </div>
   </div>
@@ -284,6 +285,7 @@
   </form>
 </body>
 <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/util.js" type="text/javascript" charset="utf-8"></script>
 <script>
   function numberInput(e){
     type=e.target.innerHTML//获取按钮的文字 判断加减操作
@@ -312,17 +314,6 @@
        $(e.target).parent().siblings('input').val(num);
     }
     updatePrice();
-  }
-  function printList(){
-    html2canvas($("body"),{onrendered:function(canvas){
-      var image = canvas.toDataURL("image/png");
-      console.log(image);
-      var a = document.createElement("a");
-      a.href = image;
-      a.target = "_blank";
-      a.click();
-    },useCORS:true});
-  
   }
 </script>
 </html>

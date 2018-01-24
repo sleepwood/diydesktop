@@ -7,7 +7,7 @@ var clipboard = new Clipboard("#share-btn");
 function setItem(e){
   if(e == 'add'){
     //设置图片
-    targetItem.children().eq(1).css({"background":"url("+item.image+")","background-size":"95% 95%","background-repeat":"no-repeat"});
+    targetItem.children().eq(1).css({"background-image":"url("+item.image+")","background-size":"95% 95%","background-repeat":"no-repeat"});
     //设置标题和数字框
     targetItem.children().eq(2).empty();
     targetItem.children().eq(2).addClass("item");
@@ -66,7 +66,7 @@ $(function(){
     if(type=='modify'){
       var $tent = targetItem.children().eq(2);
       $('#add-name').val($tent.find("a").text());
-      $('#add-img').val(targetItem.children().eq(1).css("background").match(/\(\S+\)/)[0].slice(2,-2));
+      $('#add-img').val(targetItem.children().eq(1).css("background-image").split("\"")[1]);
       $('#add-price').val($tent.find("span").text().substr(1));
       $('#add-num').val($tent.find("input").val());
       $(".modal-footer").find(".btn-primary").attr("onclick","setItem('modify')")
@@ -215,7 +215,7 @@ function sumbitList(){
     item.push($items.eq(i).find('input').val());
     item.push($items.eq(i).children('span').text().substr(1));
     listdata.push(item);
-    listimg.push($items.eq(i).prevAll('.col-lg-2').css("background").match(/\(\S+\)/)[0].slice(2,-2))
+    listimg.push($items.eq(i).prevAll('.col-lg-2').css("background-image").split("\"")[1])
   }
   console.log(listdata);
 
@@ -276,7 +276,7 @@ function getDocument(){
     item.push($data.eq(i).children().eq(2).text());
     item.push($data.eq(i).children().eq(3).text());
     listdata.push(item);
-    listimg.push($data.eq(i).find('.img').css("background").match(/\(\S+\)/)[0].slice(2,-2));
+    listimg.push($data.eq(i).find('.img').css("background-image").split("\"")[1]);
   }
 
   var times = new Date();
@@ -300,7 +300,7 @@ function getDocument(){
   $('#list-title').text(list.title[0]);
   $('#third-author').text("作者: "+list.title[1]);
   $('#list-time').text("时间: "+list.title[2]);
-  $('#list-sum').text("总计: "+list.footer[0])
+  $('#list-sum').text(list.footer[0]+" 元")
 
   var $ilist = $('.list-group-item');
   for(var i=0;i<$ilist.length;i++){
@@ -320,8 +320,16 @@ function getDocument(){
   $('#top-bar').css("width","100%");
   $('#top-bar').text("第三步——分享配置");
   $('.third-step').css("display","block");
+  printList(list.title[0]+".png");
 }
-
+function printList(name){
+  html2canvas($("#list-msg")[0],{useCORS: true}).then(function(canvas){//proxy:"http://localhost:4000/proxy",
+      //document.body.appendChild(canvas);
+      var image = canvas.toDataURL("image/png");
+      $('#pic-btn').attr("href",image);
+      $('#pic-btn').attr("download",name);
+  });
+}
 function writeList(){
   var $form = $("form");
   var $input1 = $form.find('input');
