@@ -1,6 +1,6 @@
 {
   "name": "diydesktop",
-  "version": "0.2.7",
+  "version": "0.3.0",
   "description": "",
   "main": "main.js",
   "scripts": {
@@ -15,7 +15,6 @@
     "better-xlsx": "^0.4.0",
     "casperjs": "^1.1.4",
     "express": "^4.16.2",
-    "html2canvas-proxy": "^1.0.0",
     "iconv-lite": "^0.4.19",
     "phantomjs": "^2.1.7",
     "request": "^2.83.0",

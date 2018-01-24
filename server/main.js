@@ -1,14 +1,11 @@
 var express = require('express');
 var decodes = require('./decodes');
 var xlsx = require('./export-xlsx');
-var proxy = require('html2canvas-proxy')
 var app = express();
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
-
-app.use('/proxy', proxy());
 
 app.get('/decode', function (req, res) {
   (async function(url){
