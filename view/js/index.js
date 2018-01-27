@@ -44,11 +44,15 @@ function setItem(e){
     $tent.find("span").text = $('#add-price').val();
     $tent.find("input").val($('#add-num').val());
   }
-
+  //移除校验状态和禁用按钮
+  $('#set-item').find('.has-success').toggleClass("has-success",false);
+  $('#first-submit').removeAttr('disabled');
+  $('#first-submit').toggleClass('disabled',false);
   $('#set-item').modal('toggle');
   updatePrice();
 }
 $(function(){
+  $('[data-toggle="tooltip"]').tooltip()
   //添加弹出框关闭时操作
   $('#set-item').on('hidden.bs.modal', function (e) {
     $(this).find('#add-num').val("");
@@ -80,6 +84,113 @@ $(function(){
     $('#add-alert button:first').remove();
     $('#add-url').val("");
   })
+
+  //处理添加商品对话框的输入判定
+  $('#add-url').bind('input propertychange blur',function(){
+    var $inputs = $('#add-url').val();
+    var $error = $('#add-url').parents('.input-group');
+    if($inputs.length==0||$inputs.match("http")==null){
+      $error.removeClass('has-success');
+      $error.addClass('has-error');
+    }
+    else{
+      $error.removeClass('has-error');
+      $error.toggleClass('has-success',true);
+      item.url = $('#add-url').val();
+    }
+    if($('#set-item').find('.has-success').length == 5){
+      $('#modal-sumbit').toggleClass('disabled',false);
+      $('#modal-sumbit').removeAttr("disabled");
+    }
+    else{
+      $('#modal-sumbit').toggleClass('disabled',true);
+      $('#modal-sumbit').attr("disabled",true);
+    }
+  })
+  $('#add-name').bind('input propertychange blur',function(){
+    var $inputs = $('#add-name').val();
+    var $error = $('#add-name').parents('.form-group');
+    if($inputs.length==0||$inputs.length>40){
+      $error.removeClass('has-success');
+      $error.addClass('has-error');
+    }
+    else{
+      $error.removeClass('has-error');
+      $error.toggleClass('has-success',true);
+      item.titles = $('#add-name').val();
+    }
+    if($('#set-item').find('.has-success').length == 5){
+      $('#modal-sumbit').toggleClass('disabled',false);
+      $('#modal-sumbit').removeAttr("disabled");
+    }
+    else{
+      $('#modal-sumbit').toggleClass('disabled',true);
+      $('#modal-sumbit').attr("disabled",true);
+    }
+  })
+  $('#add-img').bind('input propertychange blur',function(){
+    var $inputs = $('#add-img').val();
+    var $error = $('#add-img').parents('.form-group');
+    if($inputs.length==0||$inputs.match("http")==null){
+      $error.removeClass('has-success');
+      $error.addClass('has-error');
+    }
+    else{
+      $error.removeClass('has-error');
+      $error.toggleClass('has-success',true);
+      item.image = $('#add-img').val();
+    }
+    if($('#set-item').find('.has-success').length == 5){
+      $('#modal-sumbit').toggleClass('disabled',false);
+      $('#modal-sumbit').removeAttr("disabled");
+    }
+    else{
+      $('#modal-sumbit').toggleClass('disabled',true);
+      $('#modal-sumbit').attr("disabled",true);
+    }
+  })
+  $('#add-price').bind('input propertychange blur',function(){
+    var $inputs = $('#add-price').val();
+    var $error = $('#add-price').parents('.form-group');
+    if($inputs.length==0){
+      $error.removeClass('has-success');
+      $error.addClass('has-error');
+    }
+    else{
+      $error.removeClass('has-error');
+      $error.toggleClass('has-success',true);
+      item.price = $('#add-price').val();
+    }
+    if($('#set-item').find('.has-success').length == 5){
+      $('#modal-sumbit').toggleClass('disabled',false);
+      $('#modal-sumbit').removeAttr("disabled");
+    }
+    else{
+      $('#modal-sumbit').toggleClass('disabled',true);
+      $('#modal-sumbit').attr("disabled",true);
+    }
+  })
+  $('#add-num').bind('input propertychange blur',function(){
+    var $inputs = $('#add-num').val();
+    var $error = $('#add-num').parents('.form-group');
+    if($inputs.length==0){
+      $error.removeClass('has-success');
+      $error.addClass('has-error');
+    }
+    else{
+      $error.removeClass('has-error');
+      $error.toggleClass('has-success',true);
+    }
+    if($('#set-item').find('.has-success').length == 5){
+      $('#modal-sumbit').toggleClass('disabled',false);
+      $('#modal-sumbit').removeAttr("disabled");
+    }
+    else{
+      $('#modal-sumbit').toggleClass('disabled',true);
+      $('#modal-sumbit').attr("disabled",true);
+    }
+  })
+
   var fixHelper = function(e, ui) {
     ui.children().each(function() {
     $(this).width($(this).width());  //在拖动时，拖动行的cell（单元格）宽度会发生改变。在这里做了处理就没问题了
@@ -90,41 +201,61 @@ $(function(){
   $('#list-name').bind('input propertychange blur',function(){
     var $inputs = $('#list-name').val();
     var $error = $('#list-name').parents('.form-group');
+    $feedback = $("<span class='glyphicon form-control-feedback' aria-hidden='true'></span>");
+    $('#list-name').parent().append($feedback);
     if($inputs.length==0||$inputs.length>20){
       $error.removeClass('has-success');
       $error.addClass('has-error');
+      $('#list-name').next().toggleClass('glyphicon-ok',false);
+      $('#list-name').next().toggleClass('glyphicon-remove',true);
+
       $('#name-help').text("配置单名称不能为空或大于20汉字");
     }
     else{
       $error.removeClass('has-error');
       $error.toggleClass('has-success',true);
+      $('#list-name').next().toggleClass('glyphicon-ok',true);
+      $('#list-name').next().toggleClass('glyphicon-remove',false);
+
       $('#name-help').text("配置单名称已满足要求");
     }
     if($('#collapseOne').find('.has-success').length == 2){
       $('#next-btn').toggleClass('disabled',false);
+      $('#next-btn').removeAttr("disabled");
     }
     else{
       $('#next-btn').toggleClass('disabled',true);
+      $('#next-btn').attr("disabled","disabled");
     }
   })
   $('#list-author').bind('input propertychange blur',function(){
     var $inputs = $('#list-author').val();
     var $error = $('#list-author').parents('.form-group');
+    $feedback = $("<span class='glyphicon form-control-feedback' aria-hidden='true'></span>");
+    $('#list-author').parent().append($feedback);
     if($inputs.length==0||$inputs.length>20){
       $error.removeClass('has-success');
       $error.addClass('has-error');
+      $('#list-author').next().toggleClass('glyphicon-ok',false);
+      $('#list-author').next().toggleClass('glyphicon-remove',true);
+
       $('#author-help').text("作者昵称不能为空或大于20汉字");
     }
     else{
       $error.removeClass('has-error');
       $error.toggleClass('has-success',true);
+      $('#list-author').next().toggleClass('glyphicon-ok',true);
+      $('#list-author').next().toggleClass('glyphicon-remove',false);
+
       $('#author-help').text("作者昵称已满足要求");
     }
     if($('#collapseOne').find('.has-success').length == 2){
         $('#next-btn').toggleClass('disabled',false);
+        $('#next-btn').removeAttr("disabled");
     }
     else{
         $('#next-btn').toggleClass('disabled',true);
+        $('#next-btn').attr("disabled","disabled");
     }
   })
   //第二步表格拖动功能
@@ -179,6 +310,10 @@ function inporitem(e){
           $('#add-img').val(item.image);
           $('#add-price').val(item.price);
           $('#add-num').val(1);
+          $('#add-name').trigger('blur');
+          $('#add-img').trigger('blur');
+          $('#add-price').trigger('blur');
+          $('#add-num').trigger('blur');
         }
         else{
           setError(item.msg);
@@ -195,8 +330,13 @@ function deleteItem(e){
   targetItem.children().eq(2).removeClass('item');
   targetItem.children().eq(2).text("请设置物品");
   targetItem.children().remove("button");
-  var $btn = $("<a href='#set-item' data-toggle='modal' class='btn btn-default'>设置物品</a>");
+  var $btn = $("<button type='button' class='btn btn-default' data-toggle='modal' data-target='#set-item'>设置物品</button>");
   targetItem.append($btn);
+
+  if($('.item').length==0){
+    $('#first-submit').toggleClass('disabled',true);
+    $('#first-submit').attr("disabled",true);
+  }
 }
 //刷新表格价格
 function updatePrice(){
@@ -262,9 +402,6 @@ function resetList(){
   $body.empty();
 }
 function getDocument(){
-  var $name = $('#list-name').val();
-  var $author = $('#list-author').val();
-
   //保存更改完顺序的商品数组
   var $data = $('.list');
   //清空原先的数组
@@ -317,6 +454,9 @@ function getDocument(){
        }
      }
   }
+  //移除校验状态
+  $('#collapseOne').find('.has-success').toggleClass("has-success",false);
+  $('#collapseOne').find('.glyphicon-ok').remove();
   //页面跳转到第三页
   $('.second-step').css("display","none");
   $('#top-bar').attr("aria-valuenow","100");
