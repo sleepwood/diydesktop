@@ -36,8 +36,14 @@
     </div>
   </div>
 
-  <div class="first-step">
-    <ul class="col-lg-offset-1 col-lg-10 list-group">
+  <div class="first-step panel panel-default col-lg-offset-1 col-lg-10">
+    <div class="panel-heading row" style="margin:0px;">
+      <div class="col-lg-offset-10 col-lg-2">
+        <button type="button" id="add-cate" class="btn btn-success btn-xs">添加类目</button>
+        <button type="button" id="modify-cate" class="btn btn-info btn-xs">修改类目</button>
+      </div>
+    </div>
+    <ul class="list-group">
       <li class="list-group-item">
         <div class="row">
           <span class="col-lg-1">CPU</span>
@@ -51,6 +57,7 @@
           <span class="col-lg-2 mdboard"></span>
           <span class="col-lg-9">请设置物品</span>
           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#set-item">设置物品</button>
+          <!--span class="glyphicon glyphicon-remove" aria-hidden="true"></span-->
         </div>
       </li>
       <li class="list-group-item">

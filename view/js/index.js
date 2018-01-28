@@ -52,6 +52,30 @@ function setItem(e){
   updatePrice();
 }
 $(function(){
+  //修改类目按钮
+  $('#modify-cate').bind('click',function(event){
+      var lastToggle = (jQuery._data(this, "lastToggle" + event.handleObj.guid) || 0)%2;
+      modifyCate = function(){
+        var $row = $(".list-group-item").find('.row');
+        $row.append($("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>"));
+        $('#modify-cate').attr("class","btn btn-success btn-xs")
+        $('#modify-cate').text("确定修改");
+
+      }
+      submitCate = function(){
+        var $row = $(".list-group-item").find('.row');
+        $row.find('.glyphicon').remove();
+        $('#modify-cate').attr("class","btn btn-info btn-xs")
+        $('#modify-cate').text("修改类目");
+      }
+      if(lastToggle==0){
+        modifyCate();
+      }
+      else{
+        submitCate();
+      }
+      jQuery._data(this, "lastToggle" + event.handleObj.guid, lastToggle+1)
+  })
   $('[data-toggle="tooltip"]').tooltip()
   //添加弹出框关闭时操作
   $('#set-item').on('hidden.bs.modal', function (e) {
@@ -402,6 +426,8 @@ function resetList(){
   $body.empty();
 }
 function getDocument(){
+  $name = $('#list-name').val();
+  $author = $('#list-author').val();
   //保存更改完顺序的商品数组
   var $data = $('.list');
   //清空原先的数组
