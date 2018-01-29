@@ -4,6 +4,7 @@ var list = new Object();//列表对象
 var listimg = [];//列表——图片链接数组
 var listdata = [];//列表——生成xls文件所需数据数组
 var category = ['CPU','主板','内存','显卡','HHD','SSD','散热','电源','机箱','显示器','鼠标','键盘','其他'];
+var catecode = ['cpu','mdboard','memory','graphy','hhd','ssd','fans','power','case','monitor','mouse','keyboard','other'];
 var clipboard = new Clipboard("#share-btn");
 function setItem(e){
   if(e == 'add'){
@@ -58,7 +59,7 @@ $(function(){
       var lastToggle = (jQuery._data(this, "lastToggle" + event.handleObj.guid) || 0)%2;
       modifyCate = function(){
         var $row = $(".list-group-item").find('.row');
-        $row.append($("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>"));
+        $row.append($("<span class='glyphicon glyphicon-remove remove-cate' aria-hidden='true'></span>"));
         $('#modify-cate').attr("class","btn btn-success btn-xs")
         $('#modify-cate').text("确定修改");
       }
@@ -76,12 +77,16 @@ $(function(){
       }
       jQuery._data(this, "lastToggle" + event.handleObj.guid, lastToggle+1)
   })
+  //删除类目
+  $(document).on('click','.remove-cate',function(event){
+    $(this).parents('.list-group-item').remove();
+  })
   $('[data-toggle="tooltip"]').tooltip();
 
   //初始化添加类目中的类目类型
   var $catename = $('#cate_list');
   for(var i=0;i<category.length;i++){
-    $catename.append($("<option lable='"+category[i]+"' value='"+category[i]+"'/>"));
+    $catename.append($("<option lable='"+catecode[i]+"' value='"+category[i]+"'/>"));
   }
   //初始化添加类目中的类目序号
   var $cateindex = $('#index_list');
@@ -92,7 +97,7 @@ $(function(){
   $('#set-cate').on('show.bs.modal', function (event) {
     $('#cate-name').val("");
     $('#cate-name').parents('.form-group').toggleClass('has-success',false);
-    $('#cate-index').val($('.list-group-item').length+1);
+    $('#cate-index').val($('.list-group-item').length);
     $('#cate-index').parents('.form-group').toggleClass('has-success',true);
 
     $('#cate-sumbit').toggleClass('disabled',true);
@@ -144,8 +149,38 @@ $(function(){
   //添加类目功能
   $('#cate-sumbit').bind('click',function(){
     var index = $('#cate-index').val();
-    index = index > $('.list-group-item').length+1 ? $('.list-group-item').length+1:index;
-    
+    var name = $('#cate-name').val();
+    var css = "";
+    for(var i=0;i<category.length;i++){
+      if(name == category[i]){
+        var css = catecode[i];
+      }
+      if(i==category.length-1&&css==""){
+        css = "other";
+      }
+    }
+    index = index > $('.list-group-item').length ? $('.list-group-item').length:index;
+
+    var $sumbit = $("<li class='list-group-item'></li>");
+    var $div = $("<div class='row'></div>");
+    var $span1 = $("<span class='col-lg-1'>"+name+"</span>");
+    var $span2 = $("<span class='col-lg-2 "+css+"'></span>");
+    var $span3 = $("<span class='col-lg-9 item'>请设置物品</span>");
+    var $button = $("<button type='button' class='btn btn-default' data-toggle='modal' data-target='#set-item'>设置物品</button>");
+
+    $div.append($span1);
+    $div.append($span2);
+    $div.append($span3);
+    $div.append($button);
+    $sumbit.append($div);
+
+    if(index == $('.list-group-item').length){
+      $('.list-group').children().eq(index-1).after($sumbit);
+    }
+    else{
+      $('.list-group').children().eq(index-1).before($sumbit);
+    }
+    $('#set-cate').modal('toggle');
   })
   //添加弹出框关闭时操作
   $('#set-item').on('hidden.bs.modal', function (e) {
