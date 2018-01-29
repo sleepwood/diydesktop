@@ -3,6 +3,7 @@ var item = new Object();//获取导入信息对象
 var list = new Object();//列表对象
 var listimg = [];//列表——图片链接数组
 var listdata = [];//列表——生成xls文件所需数据数组
+var category = ['CPU','主板','内存','显卡','HHD','SSD','散热','电源','机箱','显示器','鼠标','键盘','其他'];
 var clipboard = new Clipboard("#share-btn");
 function setItem(e){
   if(e == 'add'){
@@ -60,7 +61,6 @@ $(function(){
         $row.append($("<span class='glyphicon glyphicon-remove' aria-hidden='true'></span>"));
         $('#modify-cate').attr("class","btn btn-success btn-xs")
         $('#modify-cate').text("确定修改");
-
       }
       submitCate = function(){
         var $row = $(".list-group-item").find('.row');
@@ -76,7 +76,77 @@ $(function(){
       }
       jQuery._data(this, "lastToggle" + event.handleObj.guid, lastToggle+1)
   })
-  $('[data-toggle="tooltip"]').tooltip()
+  $('[data-toggle="tooltip"]').tooltip();
+
+  //初始化添加类目中的类目类型
+  var $catename = $('#cate_list');
+  for(var i=0;i<category.length;i++){
+    $catename.append($("<option lable='"+category[i]+"' value='"+category[i]+"'/>"));
+  }
+  //初始化添加类目中的类目序号
+  var $cateindex = $('#index_list');
+  for(var i=1;i<=$('.list-group-item').length+1;i++){
+    $cateindex.append($("<option lable='"+i+"' value='"+i+"'/>"));
+  }
+  //添加类目弹出框打开时操作
+  $('#set-cate').on('show.bs.modal', function (event) {
+    $('#cate-name').val("");
+    $('#cate-name').parents('.form-group').toggleClass('has-success',false);
+    $('#cate-index').val($('.list-group-item').length+1);
+    $('#cate-index').parents('.form-group').toggleClass('has-success',true);
+
+    $('#cate-sumbit').toggleClass('disabled',true);
+    $('#cate-sumbit').attr("disabled",true);
+  })
+
+  //添加类目弹出框验证功能
+  $('#cate-name').bind('input propertychange blur',function(){
+    var $inputs = $('#cate-name').val();
+    var $error = $('#cate-name').parents('.form-group');
+    if($inputs.length==0||$inputs.length>10){
+      $error.removeClass('has-success');
+      $error.addClass('has-error');
+    }
+    else{
+      $error.removeClass('has-error');
+      $error.toggleClass('has-success',true);
+    }
+    if($('#set-cate').find('.has-success').length == 2){
+      $('#cate-sumbit').toggleClass('disabled',false);
+      $('#cate-sumbit').removeAttr("disabled");
+    }
+    else{
+      $('#cate-sumbit').toggleClass('disabled',true);
+      $('#cate-sumbit').attr("disabled",true);
+    }
+  })
+  $('#cate-index').bind('input propertychange blur',function(){
+    var $inputs = $('#cate-index').val();
+    var $error = $('#cate-index').parents('.form-group');
+    if($inputs.length==0||$inputs.length>10){
+      $error.removeClass('has-success');
+      $error.addClass('has-error');
+    }
+    else{
+      $error.removeClass('has-error');
+      $error.toggleClass('has-success',true);
+    }
+    if($('#set-cate').find('.has-success').length == 2){
+      $('#cate-sumbit').toggleClass('disabled',false);
+      $('#cate-sumbit').removeAttr("disabled");
+    }
+    else{
+      $('#cate-sumbit').toggleClass('disabled',true);
+      $('#cate-sumbit').attr("disabled",true);
+    }
+  })
+
+  //添加类目功能
+  $('#cate-sumbit').bind('click',function(){
+    var index = $('#cate-index').val();
+    index = index > $('.list-group-item').length+1 ? $('.list-group-item').length+1:index;
+    
+  })
   //添加弹出框关闭时操作
   $('#set-item').on('hidden.bs.modal', function (e) {
     $(this).find('#add-num').val("");

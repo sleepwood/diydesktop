@@ -39,7 +39,7 @@
   <div class="first-step panel panel-default col-lg-offset-1 col-lg-10">
     <div class="panel-heading row" style="margin:0px;">
       <div class="col-lg-offset-10 col-lg-2">
-        <button type="button" id="add-cate" class="btn btn-success btn-xs">添加类目</button>
+        <button type="button" id="add-cate" class="btn btn-success btn-xs" data-toggle="modal" data-target="#set-cate">添加类目</button>
         <button type="button" id="modify-cate" class="btn btn-info btn-xs">修改类目</button>
       </div>
     </div>
@@ -279,6 +279,48 @@
       </div>
     </div>
   </div>
+
+  <div class="modal fade" tabindex="-1" role="dialog" id="set-cate">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">添加类目</h4>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal formrow">
+          <div class="form-group">
+            <label class="control-label col-lg-4">类目
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="区分商品的种类"></span>
+            </label>
+            <div class="col-lg-7">
+              <input type="text" class="form-control" id="cate-name" list="cate_list" placeholder="类别名称" value=""/>
+              <datalist id="cate_list"></datalist>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal formrow">
+          <div class="form-group">
+            <label class="control-label col-lg-4">序号
+              <span class="glyphicon glyphicon-info-sign" aria-hidden="true" data-toggle="tooltip" data-placement="top" title="决定插入的位置"></span>
+            </label>
+            <div class="col-lg-7">
+              <input type="text" class="form-control" id="cate-index" list="index_list" placeholder="类别名称" value=""/>
+              <datalist id="index_list"></datalist>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button id="cate-sumbit" type="button" class="btn btn-primary disabled" disabled="disabled">添加</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      </div>
+    </div>
+  </div>
+</div>
+
   <form style="display:none" target="" method="get" action="http://localhost:4000/xlsx">
     <input type="hidden" name="items" value="">
   </form>
