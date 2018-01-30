@@ -3,8 +3,8 @@ var item = new Object();//获取导入信息对象
 var list = new Object();//列表对象
 var listimg = [];//列表——图片链接数组
 var listdata = [];//列表——生成xls文件所需数据数组
-var category = ['CPU','主板','内存','显卡','HHD','SSD','散热','电源','机箱','显示器','鼠标','键盘','其他'];
-var catecode = ['cpu','mdboard','memory','graphy','hhd','ssd','fans','power','case','monitor','mouse','keyboard','other'];
+var category = ['CPU','主板','内存','显卡','HDD','SSD','散热','电源','机箱','显示器','鼠标','键盘','其他'];
+var catecode = ['cpu','mdboard','memory','graphic','hdd','ssd','fans','power','case','monitor','mouse','kyboard','other'];
 var clipboard = new Clipboard("#share-btn");
 function setItem(e){
   if(e == 'add'){
@@ -62,12 +62,36 @@ $(function(){
         $row.append($("<span class='glyphicon glyphicon-remove remove-cate' aria-hidden='true'></span>"));
         $('#modify-cate').attr("class","btn btn-success btn-xs")
         $('#modify-cate').text("确定修改");
+
+        for(var i=0;i<$('.list-group-item .col-lg-1').length;i++){
+          var cate = $('.list-group-item .col-lg-1').eq(i).text();
+          $('.list-group-item .col-lg-1').eq(i).empty();
+          var $input = $("<input type='text' class='form-control' list='cate_list' style='padding:6px 6px;display:inline-block;' value='"+cate+"'/>");
+          $('.list-group-item .col-lg-1').eq(i).append($input);
+        }
       }
       submitCate = function(){
         var $row = $(".list-group-item").find('.row');
         $row.find('.glyphicon').remove();
         $('#modify-cate').attr("class","btn btn-info btn-xs")
         $('#modify-cate').text("修改类目");
+        for(var j=0;j<$('.list-group-item .col-lg-1').length;j++){
+          var cate = $('.list-group-item .col-lg-1').eq(j).find('input').val();
+          var css = "";
+          $('.list-group-item .col-lg-1').eq(j).empty();
+          $('.list-group-item .col-lg-1').eq(j).text(cate);
+
+          for(var i=0;i<category.length;i++){
+            if(cate == category[i]){
+              css = catecode[i];
+            }
+            if(i==category.length-1&&css==""){
+              css = "other";
+            }
+          }
+
+          $('.list-group-item .col-lg-2').eq(j).attr("class","col-lg-2 "+css);
+        }
       }
       if(lastToggle==0){
         modifyCate();
@@ -182,6 +206,7 @@ $(function(){
     }
     $('#set-cate').modal('toggle');
   })
+
   //添加弹出框关闭时操作
   $('#set-item').on('hidden.bs.modal', function (e) {
     $(this).find('#add-num').val("");
