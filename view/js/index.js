@@ -6,6 +6,7 @@ var listdata = [];//列表——生成xls文件所需数据数组
 var category = ['CPU','主板','内存','显卡','HDD','SSD','散热','电源','机箱','显示器','鼠标','键盘','其他'];
 var catecode = ['cpu','mdboard','memory','graphic','hdd','ssd','fans','power','case','monitor','mouse','kyboard','other'];
 var clipboard = new Clipboard("#share-btn");
+var isnight = false;
 function setItem(e){
   if(e == 'add'){
     //设置图片
@@ -59,9 +60,8 @@ $(function(){
     size:'small',
     offColor:'warning',
     onColor:'info',
-    onText:'<i class="fs fs-sun-o"></div>',
-    offText:'夜间',
     onSwitchChange:function(event,status){
+      isnight = status;
       if(status){
         //总体正常模式
         $('body').css("background-color","");
@@ -80,9 +80,9 @@ $(function(){
         $("#collapseOne").css({"background-color":"","color":""});
         $("#collapseTwo").css({"background-color":"","color":""});
         //弹出框夜间模式
-        $('.modal-header').css({"background-color":"","color":""});
+        $('.modal-header').css({"background-color":"","border-top-left-radius":"","border-top-right-radius":""});
         $(".modal-content").css({"background-color":"","color":""});
-        $('.modal-footer').css("background-color","");
+        $('.modal-footer').css({"background-color":"","border-bottom-left-radius":"","border-bottom-right-radius":""});
       }
       else{
         //总体夜间模式
@@ -102,9 +102,9 @@ $(function(){
         $("#collapseOne").css({"background-color":"#a4a4a4","color":"#eee"});
         $("#collapseTwo").css({"background-color":"#a4a4a4","color":"#eee"});
         //弹出框夜间模式
-        $('.modal-header').css({"background-color":"#666","color":"#eee"});
+        $('.modal-header').css({"background-color":"#666","border-top-left-radius":"6px","border-top-right-radius":"6px"});
         $(".modal-content").css({"background-color":"#a4a4a4","color":"#eee"});
-        $('.modal-footer').css("background-color","#444");
+        $('.modal-footer').css({"background-color":"#444","border-bottom-left-radius":"6px","border-bottom-right-radius":"6px"});
       }
     }
   });
@@ -145,7 +145,7 @@ $(function(){
               css = "other";
             }
           }
-          $('.list-group-item .col-lg-2').eq(j).attr("class","col-lg-2 "+css);
+          isnight ? $('.list-group-item .col-lg-2').eq(j).attr("class","col-lg-2 "+css) : $('.list-group-item .col-lg-2').eq(j).attr("class","col-lg-2 "+css+" night-pic");
         }
       }
       if(lastToggle==0){
