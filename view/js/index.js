@@ -10,6 +10,7 @@ function setItem(e){
   if(e == 'add'){
     //设置图片
     targetItem.children().eq(1).css({"background-image":"url("+item.image+")","background-size":"95% 95%","background-repeat":"no-repeat"});
+    targetItem.children().eq(1).toggleClass("night-pic",false);//夜间模式删除阴影
     //设置标题和数字框
     targetItem.children().eq(2).empty();
     targetItem.children().eq(2).addClass("item");
@@ -54,6 +55,61 @@ function setItem(e){
   updatePrice();
 }
 $(function(){
+  $("input[name='light-night']").bootstrapSwitch({
+    size:'small',
+    offColor:'warning',
+    onColor:'info',
+    onText:'<i class="fs fs-sun-o"></div>',
+    offText:'夜间',
+    onSwitchChange:function(event,status){
+      if(status){
+        //总体正常模式
+        $('body').css("background-color","");
+        $('#foot-panel').css("background-color","");
+        $('.footer').css("background-color","");
+        $('.progress').css("background-color","");
+        $('.progress-bar').css("background-color","");
+        //第一步正常模式
+        $('.first-step>.panel-heading').css("background-color","");
+        $('.first-step .list-group-item').css("background-color","");
+        $('.first-step .list-group-item .col-lg-2').removeClass("night-pic");
+        $(".first-step").css("color","");
+        //第二步正常模式
+        $('#headingOne').css({"background-color":"","color":""});
+        $('#headingTwo').css({"background-color":"","color":""});
+        $("#collapseOne").css({"background-color":"","color":""});
+        $("#collapseTwo").css({"background-color":"","color":""});
+        //弹出框夜间模式
+        $('.modal-header').css({"background-color":"","color":""});
+        $(".modal-content").css({"background-color":"","color":""});
+        $('.modal-footer').css("background-color","");
+      }
+      else{
+        //总体夜间模式
+        $('body').css("background-color","#555");
+        $('#foot-panel').css("background-color","#999");
+        $('.footer').css("background-color","#444");
+        $('.progress').css("background-color","#888");
+        $('.progress-bar').css("background-color","#343434");
+        //第一步夜间模式
+        $('.first-step>.panel-heading').css("background-color","#666");
+        $('.first-step .list-group-item').css("background-color","#a4a4a4");
+        $('.first-step .list-group-item .col-lg-2').addClass("night-pic");
+        $(".first-step").css("color","#eee");
+        //第二步夜间模式
+        $('#headingOne').css({"background-color":"#666","color":"#eee"});
+        $('#headingTwo').css({"background-color":"#666","color":"#eee"});
+        $("#collapseOne").css({"background-color":"#a4a4a4","color":"#eee"});
+        $("#collapseTwo").css({"background-color":"#a4a4a4","color":"#eee"});
+        //弹出框夜间模式
+        $('.modal-header').css({"background-color":"#666","color":"#eee"});
+        $(".modal-content").css({"background-color":"#a4a4a4","color":"#eee"});
+        $('.modal-footer').css("background-color","#444");
+      }
+    }
+  });
+  $("input[name='light-night']").bootstrapSwitch('onText', '<span class="fa fa-sun-o"></span>');
+  $("input[name='light-night']").bootstrapSwitch('offText', '<span class="fa fa-moon-o"></span>');
   //修改类目按钮
   $('#modify-cate').bind('click',function(event){
       var lastToggle = (jQuery._data(this, "lastToggle" + event.handleObj.guid) || 0)%2;
@@ -63,7 +119,7 @@ $(function(){
         $('#modify-cate').attr("class","btn btn-success btn-xs")
         $('#modify-cate').text("确定修改");
 
-        for(var i=0;i<$('.list-group-item .col-lg-1').length;i++){
+        for(var i=0 in $('.list-group-item .col-lg-1')){
           var cate = $('.list-group-item .col-lg-1').eq(i).text();
           $('.list-group-item .col-lg-1').eq(i).empty();
           var $input = $("<input type='text' class='form-control' list='cate_list' style='padding:6px 6px;display:inline-block;' value='"+cate+"'/>");
@@ -75,13 +131,13 @@ $(function(){
         $row.find('.glyphicon').remove();
         $('#modify-cate').attr("class","btn btn-info btn-xs")
         $('#modify-cate').text("修改类目");
-        for(var j=0;j<$('.list-group-item .col-lg-1').length;j++){
+        for(var j=0 in $('.list-group-item .col-lg-1')){
           var cate = $('.list-group-item .col-lg-1').eq(j).find('input').val();
           var css = "";
           $('.list-group-item .col-lg-1').eq(j).empty();
           $('.list-group-item .col-lg-1').eq(j).text(cate);
 
-          for(var i=0;i<category.length;i++){
+          for(var i=0 in category){
             if(cate == category[i]){
               css = catecode[i];
             }
@@ -89,7 +145,6 @@ $(function(){
               css = "other";
             }
           }
-
           $('.list-group-item .col-lg-2').eq(j).attr("class","col-lg-2 "+css);
         }
       }
@@ -109,7 +164,7 @@ $(function(){
 
   //初始化添加类目中的类目类型
   var $catename = $('#cate_list');
-  for(var i=0;i<category.length;i++){
+  for(var i=0 in category){
     $catename.append($("<option lable='"+catecode[i]+"' value='"+category[i]+"'/>"));
   }
   //初始化添加类目中的类目序号
@@ -175,7 +230,7 @@ $(function(){
     var index = $('#cate-index').val();
     var name = $('#cate-name').val();
     var css = "";
-    for(var i=0;i<category.length;i++){
+    for(var i=0 in category){
       if(name == category[i]){
         var css = catecode[i];
       }
@@ -518,7 +573,7 @@ function sumbitList(){
 
   //渲染内容确认部分
   var $body = $('#collapseTwo').find("tbody");
-  for(var j=0;j<listdata.length;j++){
+  for(var j=0 in listdata){
     var $tr = $("<tr class='list' title='"+listdata[j][0]+"'></tr>");
     var $img = $("<td class='img'></td>");
     $img.css("background-image","url("+listimg[j]+")");
@@ -584,7 +639,7 @@ function getDocument(){
 
   //设置要复制到剪切板的文本内容
   var l2text = list.title[0]+"\n作者:"+list.title[1]+" 在 "+list.title[2]+" 制作\n";
-  for(var i=0;i<list.data.length;i++){
+  for(var i=0 in list.data){
     l2text += list.data[i][0]+": "+list.data[i][1]+" "+list.data[i][3]+"件 "+list.data[i][4]+"元\n";
   }
   l2text += "总价:"+list.footer[0]+"元\n此条配置生成于 diyDeskTop 转发请保留此版权信息。"
@@ -607,6 +662,7 @@ function getDocument(){
          var $num = $('#third-list').children('.list-group-item').eq(i).find('.num').val();
          $('#third-list').children('.list-group-item').eq(i).find('.item-line').empty();
          $('#third-list').children('.list-group-item').eq(i).find('.item-line').text($num);
+         $('#third-list').children('.list-group-item').eq(i).css("background-color","");
        }
      }
   }

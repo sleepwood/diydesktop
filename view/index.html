@@ -7,11 +7,14 @@
   <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/jquery-ui.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/bootstrap-switch.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/clipboard.min.js" type="text/javascript" charset="utf-8"></script>
   <script src="js/html2canvas.min.js" type="text/javascript" charset="utf-8"></script>
   <title>diydesk.TOP</title>
   <link href="css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="css/jquery-ui.min.css" rel="stylesheet"/>
+  <link href="css/bootstrap-switch.min.css" rel="stylesheet">
+  <link href="css/font-awesome.min.css" rel="stylesheet"/>
+    <link href="css/jquery-ui.min.css" rel="stylesheet"/>
   <link href="css/common.css" rel="stylesheet"/>
   <link href="css/index.css" rel="stylesheet"/>
 </head>
@@ -21,11 +24,13 @@
         <a class="navbar-brand" href="#">DIY</a>
     </div>
     <ul class="nav navbar-nav">
-      <li><a href="#">首页</a></li>
-      <li><a href="#">排行</a></li>
+      <li><a href="#">模版</a></li>
       <li><a href="#">关于</a></li>
     </ul>
     <!--p class="navbar-text navbar-right">admin <a href="#" class="navbar-link">注销</a></p-->
+    <form class="navbar-form navbar-right">
+      <input class="form-control" type="checkbox" name="light-night" checked>
+    </form>
   </nav>
 
   <div class="row">
@@ -48,7 +53,7 @@
         <div class="row">
           <span class="col-lg-1">CPU</span>
           <span class="col-lg-2 cpu"></span>
-          <span class="col-lg-9 item">请设置物品</span>
+          <span class="col-lg-9">请设置物品</span>
           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#set-item">设置物品</button>
         </div>
       </li>
@@ -191,7 +196,7 @@
     </div>
   </div>
 
-  <div class="col-lg-offset-1 col-lg-10 panel panel-default">
+  <div id="foot-panel" class="col-lg-offset-1 col-lg-10 panel panel-default">
     <div class="panel-body item-line first-step">
       <span class="col-lg-3 col-lg-offset-6">总金额：</span>
       <span class="col-lg-3 sum-price">¥ 0</span>
@@ -199,7 +204,7 @@
     </div>
     <div class="panel-body item-line second-step" style="display:none;">
       <span class="col-lg-offset-1 col-lg-10">
-        <input type="checkbox" id="statistics" checked="true">允许本网站统计配置单中的商品信息
+        <input type="checkbox" id="statistics" checked="true">把此配置单保存到我的配置库中
         <input type="checkbox" id="share">允许本网站分享此配置单作为模版供其他用户使用
       </span>
       <a class="btn btn-primary col-lg-offset-1 col-lg-1" id="prev-btn" href="javascript:resetList()">上一步</a>
@@ -208,7 +213,7 @@
     <div class="panel-body item-line third-step" style="display:none;">
       <a class="btn btn-primary col-lg-offset-1 col-lg-2 share-btn" id="share-btn">保存到剪切板</a>
       <a class="btn btn-info col-lg-offset-2 col-lg-2" id="pic-btn" href="">生成图片</a>
-      <a class="btn btn-success col-lg-offset-2 col-lg-2" id="xls-btn" href="javascript:writeList()">生成xls文件</a>
+      <a class="btn btn-success col-lg-offset-2 col-lg-2" id="xls-btn" href="javascript:writeList()">生成xlsx文件</a>
     </div>
   </div>
 
@@ -325,6 +330,13 @@
   <form style="display:none" target="" method="get" action="http://localhost:4000/xlsx">
     <input type="hidden" name="items" value="">
   </form>
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-offset-1 col-lg-10">Copyright (c) 2017-2018 Powered by <a target="_blank" href="https://github.com/sleepwood/diydesktop/">diyDeskTop</a> Author: <a target="_blank" href="https://github.com/sleepwood/">sleepwood</a> All Rights Reserved.</div>
+    </div>
+  </div>
+</div>
 </body>
 <script src="js/index.js" type="text/javascript" charset="utf-8"></script>
 <script src="js/util.js" type="text/javascript" charset="utf-8"></script>

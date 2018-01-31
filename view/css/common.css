@@ -26,3 +26,15 @@ input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+.footer{
+  display: inline-flex;
+  width:100%;
+  background-color: #f5f5f5;
+  color:#999999;
+  padding: 15px;
+}
+.night-pic{
+  right: -42px;
+  filter: drop-shadow(40px 0);
+  -webkit-filter: drop-shadow(white -42px 0);
+}
