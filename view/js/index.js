@@ -69,6 +69,7 @@ $(function(){
         $('.footer').css("background-color","");
         $('.progress').css("background-color","");
         $('.progress-bar').css("background-color","");
+        $('.panel').css("border","");
         //第一步正常模式
         $('.first-step>.panel-heading').css("background-color","");
         $('.first-step .list-group-item').css("background-color","");
@@ -91,6 +92,7 @@ $(function(){
         $('.footer').css("background-color","#444");
         $('.progress').css("background-color","#888");
         $('.progress-bar').css("background-color","#343434");
+        $('.panel').css("border","0");
         //第一步夜间模式
         $('.first-step>.panel-heading').css("background-color","#666");
         $('.first-step .list-group-item').css("background-color","#a4a4a4");
